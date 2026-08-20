@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>My To-Do List</title>
+</head>
+<body>
+
+<h1 style="color:purple;">My To-Do List</h1>
+<p id="counter">Tasks no. : 0</p>
+
+<input type="text" id="taskInput" placeholder="Enter task">
+<button onclick="addTask()">Add Task</button>
+
+<ul id="taskList"></ul>
+
+<script>
+let count = 0;
+
+function addTask() {
+  let input = document.getElementById("taskInput");
+  let text = input.value;
+
+  if (text === "") {
+    return;
+  }
+
+  let li = document.createElement("li");
+  li.innerHTML = text + 
+    " <button onclick='completeTask(this)'>✔</button>" +
+    " <button onclick='deleteTask(this)'>✖</button>";
+
+  document.getElementById("taskList").appendChild(li);
+
+  input.value = "";
+  count++;
+  document.getElementById("counter").textContent ="Task no.: " + count;
+}
+
+function completeTask(btn) {
+  let li = btn.parentElement;
+  li.style.textDecoration = "line-through";
+  li.style.color = "gray";
+}
+
+function deleteTask(btn) {
+  let li = btn.parentElement;
+  li.remove();
+  count--;
+  document.getElementById("counter").textContent = "Tasks no.: " + count;
+}
+document.getElementById("taskInput").addEventListener("keydown", function(e) {
+  if (e.key === "Enter") {
+    addTask();
+  }
+});
+</script>
+</body>
+</html>
